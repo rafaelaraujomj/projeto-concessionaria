@@ -6,7 +6,7 @@ public class Venda {
     private double valor;
     private LocalDateTime dataVenda;
 
-    // Construtor validando o valor com a sua Exception personalizada
+    // Construtor validando o valor com a exception personalizada
     public Venda(Veiculo veiculo, Pessoa comprador, double valor, LocalDateTime dataVenda) {
         if (valor <= 0) {
             throw new VendaInvalidaException("Erro: O valor da venda deve ser maior que zero!");
@@ -40,7 +40,7 @@ public class Venda {
         this.comprador = comprador;
     }
     
-    // Setter também validado
+    // Setter validado
     public void setValor(double valor) {
         if (valor <= 0) {
             throw new VendaInvalidaException("Erro: O valor da venda deve ser maior que zero!");
@@ -51,7 +51,7 @@ public class Venda {
         this.dataVenda = dataVenda;
     }
 
-    // --- MÉTODOS DE NEGÓCIO ---
+    // Método de negócio
 
     public double calcularLucroOuPerda() {
         return this.valor - this.veiculo.getPreco(); 
@@ -66,11 +66,11 @@ public class Venda {
         
         double diferenca = calcularLucroOuPerda();
         if (diferenca > 0) {
-            System.out.println("📈 Resultado: Lucro de R$" + diferenca);
+            System.out.println("Resultado: Lucro de R$" + diferenca);
         } else if (diferenca < 0) {
-            System.out.println("📉 Resultado: Perda/Prejuízo de R$" + Math.abs(diferenca));
+            System.out.println("Resultado: Perda/Prejuízo de R$" + Math.abs(diferenca));
         } else {
-            System.out.println("➖ Resultado: Venda a preço de custo (Sem lucro ou perda).");
+            System.out.println("Resultado: Venda a preço de custo (Sem lucro ou perda).");
         }
     }
 }

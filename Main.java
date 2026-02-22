@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    // 1. REFATORAÇÃO: Unificamos as listas usando Polimorfismo!
+    // Unificação das listas
     private static List<Veiculo> veiculos = new ArrayList<>();
     private static List<Pessoa> clientes = new ArrayList<>();
     private static List<Venda> vendas = new ArrayList<>();
@@ -55,14 +55,12 @@ public class Main {
         scanner.close();
     }
 
-    // REFATORAÇÃO: Método unificado usando a herança da classe Veiculo
+    // Método unificado usando a herança da classe Veiculo
     private static void mostrarVeiculos() {
         if (!veiculos.isEmpty()) {
             System.out.println("\n- - - Estoque de Veículos - - -");
             int x = 1;
             for (Veiculo v : veiculos) {
-                // Aqui podemos chamar v.exibirInformacoes() que vem da Interface, 
-                // ou fazer uma listagem limpa para o menu:
                 System.out.println(x + " - " + v.getMarca() + " " + v.getModelo() + " | Ano: " + v.getAno() + " | Tipo: " + v.getClass().getSimpleName());
                 x++;
             }
@@ -75,7 +73,7 @@ public class Main {
         System.out.println("\n--- Compra de Veículo (Entrada) ---");
         System.out.println("1 - Carro");
         System.out.println("2 - Moto");
-        System.out.println("3 - Caminhão"); // Novo veículo implementado
+        System.out.println("3 - Caminhão");
         System.out.println("0 - Voltar");
         System.out.print("Escolha o tipo: ");
         
@@ -119,7 +117,7 @@ public class Main {
     }
 
     private static void venderVeiculo(Scanner scanner) {
-        // Uso da nossa Exception Personalizada
+        // Exception
         if (veiculos.isEmpty()) {
             throw new EstoqueVazioException("Erro: Não há veículos no estoque para vender!");
         }
@@ -142,7 +140,6 @@ public class Main {
         double valorVenda = scanner.nextDouble();
         scanner.nextLine();
 
-        // Isso pode estourar a VendaInvalidaException se o valor for zero/negativo
         Venda novaVenda = new Venda(veiculoParaVenda, comprador, valorVenda, LocalDateTime.now());
         
         vendas.add(novaVenda);
@@ -157,7 +154,7 @@ public class Main {
         System.out.print("Endereço: "); String endereco = scanner.nextLine();
         System.out.print("Telefone: "); String telefone = scanner.nextLine();
         System.out.print("E-mail: "); String email = scanner.nextLine();
-        System.out.print("Altura (ex: 1.75): "); double altura = scanner.nextDouble(); scanner.nextLine();
+        System.out.print("Altura (em cm): "); double altura = scanner.nextDouble(); scanner.nextLine();
         System.out.print("Peso (kg): "); double peso = scanner.nextDouble(); scanner.nextLine();
 
         clientes.add(new Pessoa(nome, idade, endereco, telefone, email, altura, peso));
@@ -177,7 +174,7 @@ public class Main {
         }
     }
 
-    // NOVO: Sugestão por biotipo usando os dados da Pessoa
+    // Sugestão por biotipo usando os dados da Pessoa
     private static void sugerirVeiculoPorBiotipo(Scanner scanner) {
         if (clientes.isEmpty()) {
             System.out.println("Cadastre um cliente primeiro para sugerir um veículo!");
@@ -192,7 +189,7 @@ public class Main {
         System.out.println("\n--- Análise de Biotipo ---");
         System.out.println("Cliente: " + cliente.getNome() + " | Altura: " + cliente.getAltura() + "m | Peso: " + cliente.getPeso() + "kg");
         
-        // Lógica simples de biotipo
+        // Lógica do biotipo
         if (cliente.getAltura() > 1.85 || cliente.getPeso() > 100) {
             System.out.println("Sugestão: Veículos com amplo espaço interno (SUVs, Caminhonetes ou Sedans Grandes).");
         } else if (cliente.getAltura() < 1.60) {
